@@ -23,7 +23,7 @@ export default grammar({
       $.block
     ),
 
-    freeform: $ => /.*/, // Text that is outside all blocks
+    freeform: $ => /.+/, // Text that is outside all blocks
 
     block: $ => seq(
       $.block_start,
