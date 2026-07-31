@@ -146,10 +146,10 @@ bool tree_sitter_ftml_external_scanner_scan(void *payload, TSLexer *lexer,
     skip(lexer);
   }
 
-  if ((valid_symbols[START_BLOCK_NAME] || valid_symbols[END_BLOCK_NAME])) {
-    return valid_symbols[START_BLOCK_NAME]
-               ? scan_start_block_name(scanner, lexer)
-               : scan_end_block_name(scanner, lexer);
+  if (valid_symbols[START_BLOCK_NAME]) {
+    return scan_start_block_name(scanner, lexer);
+  } else if (valid_symbols[END_BLOCK_NAME]) {
+    return scan_end_block_name(scanner, lexer);
   }
 
   return false;
