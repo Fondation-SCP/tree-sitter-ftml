@@ -10,9 +10,19 @@ typedef struct {
   Array(Block) blocks;
 } Scanner;
 
-void *tree_sitter_ftml_external_scanner_create() { return NULL; }
+void *tree_sitter_ftml_external_scanner_create() {
+  Scanner *scanner = (Scanner *)ts_calloc(1, sizeof(Scanner));
+  return scanner;
+}
 
-void tree_sitter_ftml_external_scanner_destroy(void *payload) {}
+void tree_sitter_ftml_external_scanner_destroy(void *payload) {
+  Scanner *scanner = (Scanner *)payload;
+  for (unsigned i = 0; i < scanner->blocks.size; i++) {
+    block_free(&scanner->blocks.contents[i]);
+  }
+  array_delete(&scanner->blocks);
+  ts_free(scanner);
+}
 
 unsigned tree_sitter_ftml_external_scanner_serialize(void *payload,
                                                      char *buffer) {
