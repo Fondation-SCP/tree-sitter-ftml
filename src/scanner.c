@@ -1,8 +1,13 @@
+#include "block.h"
 #include "tree_sitter/alloc.h"
 #include "tree_sitter/array.h"
 #include "tree_sitter/parser.h"
 
 enum TokenType { START_BLOCK_NAME, END_BLOCK_NAME };
+
+typedef struct {
+  Array(Block) blocks;
+} Scanner;
 
 void *tree_sitter_ftml_external_scanner_create() { return NULL; }
 
